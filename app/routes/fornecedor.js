@@ -4,5 +4,6 @@ module.exports = function (app) {
   app.get("/fornecedor/:cnpj", controller.selectFornecedorByCNPJAndProduto);
   app.post("/", controller.newFornecedor);
   app.put("/", controller.upDateFornecedor);
+  app.put("/fornecedor/:id", controller.upDateFornecedorFromURL);
   app.delete("/", controller.deleteFornecedor);
 };

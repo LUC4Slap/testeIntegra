@@ -70,14 +70,20 @@ module.exports = function (app) {
       }
     },
     upDateFornecedor: async (req, res) => {
-      let id = req.body._id;
-      Fornecedor.findById(id, (err, doc) => {
+      let id = req.body.id;
+      Fornecedor.findOneAndUpdate({ _id: id }, req.body, (err, doc) => {
         if (err) {
           res.status(500).send("Erro");
         }
-        doc.cnpj = req.body.cnpj;
-        doc.nome = req.body.nome;
-        doc.save();
+        res.status(200).json({ message: "Fornecedor Atualizado" });
+      });
+    },
+    upDateFornecedorFromURL: async (req, res) => {
+      let id = req.params.id;
+      Fornecedor.findOneAndUpdate({ _id: id }, req.body, (err, doc) => {
+        if (err) {
+          res.status(500).send("Erro");
+        }
         res.status(200).json({ message: "Fornecedor Atualizado" });
       });
     },

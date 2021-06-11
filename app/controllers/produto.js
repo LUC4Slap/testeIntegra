@@ -3,7 +3,6 @@ const validCNPJ = require("../../utils/validCNPJ");
 
 module.exports = function (app) {
   let Produtos = app.models.produtos;
-  // let Fornecedor = app.models.fornecedor;
   let controller = {
     index: (req, res) => {
       Produtos.find({}, [], { sort: { nome: 1 } })
@@ -42,26 +41,53 @@ module.exports = function (app) {
         res.status(404).json({ message: "CNPJ informado não é valido" });
       }
     },
+    selectProdutoByCNPJ: async (req, res) => {
+      let Fornecedor = app.models.fornecedor;
+      let cnpjFor = req.params.cnpj;
+      if (req.body === {} || cnpjFor === undefined) {
+        res.status(404).json({ message: "CNPJ ou Nome não pode ser vazio" });
+        return;
+      }
+      let cnpjValidado = validCNPJ(cnpjFor);
+      if (cnpjValidado) {
+        Fornecedor.findOne({ cnpj: cnpjFor })
+          .then((fornecedor) => {
+            Produtos.find({ cnpjFornecedor: cnpjFor })
+              .then((produto) => {
+                let result = { fornecedor: [] };
+                result.fornecedor.push({
+                  ...fornecedor._doc,
+                  produtos: produto,
+                });
+                res.status(200).json(result);
+              })
+              .catch((err) => {
+                res.status(500).json({ message: "Erro ao buscar produto".red });
+              });
+          })
+          .catch((err) => {
+            res.status(500).json({ message: "Erro ao buscar fornecedor".red });
+          });
+      } else {
+        res.status(404).json({ message: "CNPJ não encontrado" });
+      }
+    },
     upDateProduto: async (req, res) => {
-      let id = req.body._id;
-      Produtos.findById(id, (err, doc) => {
+      let id = req.params.id;
+      Produtos.findOneAndUpdate({ _id: id }, req.body, (err, doc) => {
         if (err) {
           res.status(500).send("Erro");
         }
-        doc.cnpj = req.body.cnpj;
-        doc.nome = req.body.nome;
-        doc.codigo = req.body.codigo;
-        doc.save();
-        res.status(200).json({ message: "Fornecedor Atualizado" });
+        res.status(200).json({ message: "Produto Atualizado" });
       });
     },
     deleteproduto: async (req, res) => {
-      let id = req.body._id;
-      Fornecedor.findByIdAndRemove(id, (err, response) => {
+      let id = req.params.id;
+      Produtos.findByIdAndRemove(id, (err, response) => {
         if (err) {
           res.status(500).send("ERRO PARA EXCLUIR");
         }
-        res.status(200).json({ message: "Fornecedor excluido" });
+        res.status(200).json({ message: "Produto excluido" });
       });
     },
   };
