@@ -70,6 +70,7 @@ module.exports = function (app) {
       }
     },
     upDateFornecedor: async (req, res) => {
+      // TUDO: MUDAR O JEITO DE ATUALIZAÇÃO UTILIZAR CNPJ NO LUGAR DO ID
       let id = req.body.id;
       Fornecedor.findOneAndUpdate({ _id: id }, req.body, (err, doc) => {
         if (err) {
@@ -79,6 +80,7 @@ module.exports = function (app) {
       });
     },
     upDateFornecedorFromURL: async (req, res) => {
+      // TUDO: MUDAR O JEITO DE ATUALIZAÇÃO UTILIZAR CNPJ NO LUGAR DO ID
       let id = req.params.id;
       Fornecedor.findOneAndUpdate({ _id: id }, req.body, (err, doc) => {
         if (err) {

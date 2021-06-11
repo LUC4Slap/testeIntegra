@@ -74,6 +74,7 @@ module.exports = function (app) {
     },
     upDateProduto: async (req, res) => {
       let id = req.params.id;
+      // TUDO: MUDAR O JEITO DE ATUALIZAÇÃO UTILIZAR CNPJ NO LUGAR DO ID
       Produtos.findOneAndUpdate({ _id: id }, req.body, (err, doc) => {
         if (err) {
           res.status(500).send("Erro");
