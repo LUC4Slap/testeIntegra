@@ -3,7 +3,6 @@ const validCNPJ = require("../../utils/validCNPJ");
 
 module.exports = function (app) {
   let Fornecedor = app.models.fornecedor;
-  let Produtos = app.models.produtos;
   let controller = {
     index: (req, res) => {
       Fornecedor.find({}, [], { sort: { nome: 1 } })
@@ -12,14 +11,13 @@ module.exports = function (app) {
           res.status(200).json(fonecedor);
         });
     },
-    selectFornecedorByCNPJ: async (req, res) => {
+    selectFornecedorByCNPJAndProduto: async (req, res) => {
+      let Produtos = app.models.produtos;
       let cnpjFor = req.params.cnpj;
-
       if (req.body === {} || cnpjFor === undefined) {
         res.status(404).json({ message: "CNPJ ou Nome não pode ser vazio" });
         return;
       }
-
       let cnpjValidado = validCNPJ(cnpjFor);
       if (cnpjValidado) {
         Fornecedor.findOne({ cnpj: cnpjFor })

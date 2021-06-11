@@ -1,7 +1,7 @@
 module.exports = function (app) {
   let controller = app.controllers.fornecedor;
   app.get("/", controller.index);
-  app.get("/:cnpj", controller.selectFornecedorByCNPJ);
+  app.get("/fornecedor/:cnpj", controller.selectFornecedorByCNPJAndProduto);
   app.post("/", controller.newFornecedor);
   app.put("/", controller.upDateFornecedor);
   app.delete("/", controller.deleteFornecedor);

@@ -56,13 +56,13 @@ module.exports = function (app) {
       });
     },
     deleteproduto: async (req, res) => {
-      // let id = req.body._id;
-      // Fornecedor.findByIdAndRemove(id, (err, response) => {
-      //   if (err) {
-      //     res.status(500).send("ERRO PARA EXCLUIR");
-      //   }
-      //   res.status(200).json({ message: "Fornecedor excluido" });
-      // });
+      let id = req.body._id;
+      Fornecedor.findByIdAndRemove(id, (err, response) => {
+        if (err) {
+          res.status(500).send("ERRO PARA EXCLUIR");
+        }
+        res.status(200).json({ message: "Fornecedor excluido" });
+      });
     },
   };
   return controller;
