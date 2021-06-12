@@ -72,15 +72,33 @@ module.exports = function (app) {
         res.status(404).json({ message: "CNPJ não encontrado" });
       }
     },
-    upDateProduto: async (req, res) => {
-      let id = req.params.id;
+    upDateProdutoURL: async (req, res) => {
+      let cnpj = req.params.cnpj;
       // TUDO: MUDAR O JEITO DE ATUALIZAÇÃO UTILIZAR CNPJ NO LUGAR DO ID
-      Produtos.findOneAndUpdate({ _id: id }, req.body, (err, doc) => {
-        if (err) {
-          res.status(500).send("Erro");
+      Produtos.findOneAndUpdate(
+        { cnpjFornecedor: cnpj },
+        req.body,
+        (err, doc) => {
+          if (err) {
+            res.status(500).send("Erro");
+          }
+          res.status(200).json({ message: "Produto Atualizado" });
         }
-        res.status(200).json({ message: "Produto Atualizado" });
-      });
+      );
+    },
+    upDateProduto: async (req, res) => {
+      let cnpj = req.body.cnpj;
+      // TUDO: MUDAR O JEITO DE ATUALIZAÇÃO UTILIZAR CNPJ NO LUGAR DO ID
+      Produtos.findOneAndUpdate(
+        { cnpjFornecedor: cnpj },
+        req.body,
+        (err, doc) => {
+          if (err) {
+            res.status(500).send("Erro");
+          }
+          res.status(200).json({ message: "Produto Atualizado" });
+        }
+      );
     },
     deleteproduto: async (req, res) => {
       let id = req.params.id;
