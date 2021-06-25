@@ -1,0 +1,44 @@
+GET http://localhost:3000/users
+Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsdWNhc2xhcDI3QGdtYWlsLmNvbSIsImxldmVsIjoiYWRtaW4iLCJpc3MiOiJhcGktZm9uZWNlZG9yIiwiaWF0IjoxNjI0NjMyMTk0fQ.yi6f6b7y-s3MF-ggjNoRvGn52206dILHueAH39rDV4k'
+# Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYWNpcmFtYkBnbWFpbC5jb20iLCJsZXZlbCI6InVzZXIiLCJpc3MiOiJhcGktZm9uZWNlZG9yIiwiaWF0IjoxNjI0NjMzNTYzfQ.7jLq0hZnHo1XxcVP5r4ZUe5zJDxbwXqLTE-W1Sm0Z44'
+
+###
+
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "nome":"Jacira Borges",
+  "email":"jaciramb@gmail.com",
+  "password":"jacira7300",
+  "level":"user"
+}
+
+###
+
+PUT http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "email":"lucaslap27@gmail.com",
+  "nome": "Lucas Almeida",
+  "password": "lucasalmeida12"
+}
+
+###
+
+DELETE  http://localhost:3000/users/60d4a10a9948cd0254f498d2
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+# {
+#   "email":"lucaslap27@gmail.com",
+#   "password":"lucasalmeida12"
+# }
+{
+  "email":"jaciramb@gmail.com",
+  "password":"jacira7300"
+}

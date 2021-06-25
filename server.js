@@ -5,4 +5,7 @@ require("./config/database")(
   { useUnifiedTopology: true }
 );
 
-app.listen(app.get("port"), console.log("Server on".blue));
+app.listen(
+  app.get("port"),
+  console.log("Server on http://localhost:3000".blue)
+);
