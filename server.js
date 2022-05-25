@@ -1,7 +1,7 @@
 const colors = require("colors");
 const app = require("./config/express")();
 require("./config/database")(
-  "mongodb+srv://lucasalmeida:lucasalmeida12@cluster0.mmsst.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  "mongodb+srv://lucasalmeida:<>@cluster0.mmsst.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
   { useUnifiedTopology: true }
 );
 
